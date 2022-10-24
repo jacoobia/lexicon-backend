@@ -24,6 +24,7 @@ export const findOneById = async(id: string): Promise<IItem | null> => {
     }
 }
 
+// exact search by name
 export const findByName = async(name: string) => {
     return await Item.find( {"name": { $regex: new RegExp(`^${name}`, "i") } } );
 } 
@@ -40,7 +41,7 @@ export const create = async(data: IItem): Promise<IItem | string> => {
     }
 }
 
-export const deleteRecords = async(ids: string[]) => {
+export const remove = async(ids: string[]) => {
     try {
         return await Promise.all(
         ids.map(async (id: string) => {
@@ -49,5 +50,13 @@ export const deleteRecords = async(ids: string[]) => {
         }));
     } catch(err) {
         return `An error occurred trying to delete those records.`;
+    }
+}
+
+export const search = async(name: string): Promise<IItem[] | null> => {
+    try {
+        return await Item.find({ "name": new RegExp(name, "i") });
+    } catch(err) {
+        return null;
     }
 }

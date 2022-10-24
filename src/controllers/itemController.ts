@@ -10,7 +10,6 @@ export const getAllItemRecords = async (req: Request, res: Response) => {
         const items = await allItems();
         res.status(200).json({ success: true, data: items });
     } catch(err) {
-        console.log(err);
         res.status(400).json({ success: false, error: 'An error was thrown trying to process your request.' });
     }
 };
